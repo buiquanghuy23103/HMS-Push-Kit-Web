@@ -1,0 +1,29 @@
+{
+  "name": "hms-push-kit-web",
+  "version": "1.0.0",
+  "description": "Implementation of Push Kit in web application",
+  "main": "index.html",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buiquanghuy23103/HMS-Push-Kit-Web.git"
+  },
+  "keywords": [
+    "hms",
+    "push-kit",
+    "web"
+  ],
+  "author": "Huy Bui",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/buiquanghuy23103/HMS-Push-Kit-Web/issues"
+  },
+  "homepage": "https://github.com/buiquanghuy23103/HMS-Push-Kit-Web#readme"
+}
