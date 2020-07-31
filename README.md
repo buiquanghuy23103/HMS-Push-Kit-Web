@@ -1,4 +1,4 @@
-# webPush-token
+# HMS Push Kit in web application
 
 
 ## Table of Contents
@@ -19,10 +19,12 @@ the browser's ServiceWork, and call the interface to get and delete the browser'
 
 First, ensure that the node environment has been installed.
 
-Start locally(Listening on port: 5060.):
+Start locally (listening on port 5060):
 
 ```bash
-$ node .\server.js
+$ npm init
+$ npm install
+$ npm start
 ```
 
 ## Sample Code
