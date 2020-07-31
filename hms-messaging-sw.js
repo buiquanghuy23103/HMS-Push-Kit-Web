@@ -2,8 +2,8 @@
 importScripts('https://push-static.dbankcdn.com/hms-messaging.js');
 // Your web app's  configuration
 var hmsConfig = {
-  apiKey: "_fCXdESSSpjs5z7vYb2GcU1_6C8BEQ9tdJVUQaBu",
-  appId: "101249565"
+  apiKey: "PhxID5RKlRmvogA_MGFTMVqBUgOY7dC9kLq1OcYP",
+  appId: "101826641"
 };
 
 // Initialize hmsConfig
