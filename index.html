@@ -35,6 +35,7 @@
             <button type="button" class="btn btn-outline-dark" onclick="onBtnDeleteToken()">Delete Token</button>
             <button type="button" class="btn btn-outline-dark" onclick="onBtnGetAndDeleteToken()">Get and Delete
                 Token</button>
+            <button type="button" class="btn btn-outline-dark" onclick="sendMessages()">Send messages</button>
             <p id="token" style="margin-top:30px">Message here</p>
         </div>
         <div class="jumbotron text-center"
@@ -44,6 +45,7 @@
         </div>
     </div>
     <script src="https://push-static.dbankcdn.com/hms-messaging.js"></script>
+    <script src="./node_modules/axios/dist/axios.js"></script>
     <script>
 
         var hmsConfig = {
@@ -138,6 +140,42 @@
                 alert('An error occurred while retrieving token. err is ' + err);
             });
         }
+
+
+        
+        function sendMessages() {
+            messaging.getToken().then(token => {
+                console.log('Current token: ', token);
+
+                const url = `https://cors-anywhere.herokuapp.com/https://push-api.cloud.huawei.com/v1/${hmsConfig.appId}/messages:send`
+                console.log("Send request to: " + url);
+
+                var current = [token]
+                dataMessage.message.token = current;
+
+                const headers = {
+                    headers:
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                };
+
+
+
+                axios.post(url, dataMessage, headers)
+                    .then((res) => {
+                        console.log(`statusCode: ${res.statusCode}`)
+                        console.log(res)
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                    })
+            })
+        }
+
+
         navigator.serviceWorker.register("hms-messaging-sw.js", {
             scope: "./hms-cloud-messaging-push-scope"
         }).then((registration) => {
