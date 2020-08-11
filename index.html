@@ -142,18 +142,15 @@
         }
 
 
-        
+
         function sendMessages() {
-            messaging.getToken().then(token => {
-                console.log('Current token: ', token);
+            getAccessToken().then(token => {
+                console.log('Current access token: ', token);
 
                 const url = `https://cors-anywhere.herokuapp.com/https://push-api.cloud.huawei.com/v1/${hmsConfig.appId}/messages:send`
                 console.log("Send request to: " + url);
 
-                var current = [token]
-                dataMessage.message.token = current;
-
-                const headers = {
+                const config = {
                     headers:
                     {
                         'Content-Type': 'application/json',
@@ -162,17 +159,43 @@
                     }
                 };
 
-
-
-                axios.post(url, dataMessage, headers)
-                    .then((res) => {
-                        console.log(`statusCode: ${res.statusCode}`)
-                        console.log(res)
-                    })
-                    .catch((error) => {
-                        console.error(error)
-                    })
+                postMessage(url, dataMessage, config);
             })
+        }
+
+        async function getAccessToken() {
+            const requestBody = {
+                grant_type: "client_credentials",
+                client_id: "c2312c04b6d025c41dc3c09d5b7a224a21f8812bbd1dcce4d1859019bbe9d5d6",
+                client_secret: "CV6K/HICz1wVe4CJSXEKpbT3G4aPjSRHdafqkernOAtTLxC4geiIg2HOUJUiPVB4yjdxKBEwjfXMTjC9RhIvKTW1N8yI"
+            };
+
+            const transformRequest = requestBody =>
+                Object.entries(jsonData)
+                    .map(x => `${encodeURIComponent(x[0])}=${encodeURIComponent(x[1])}`)
+                    .join('&');
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            };
+
+            const url = "https://oauth-login.cloud.huawei.com/oauth2/v3/token";
+
+            return axios.post(url, transformRequest, config);
+        }
+
+        function postMessage(url, dataMessage, headers) {
+            axios.post(url, dataMessage, headers)
+                .then((res) => {
+                    console.log(`statusCode: ${res.statusCode}`)
+                    console.log(res)
+                })
+                .catch((error) => {
+                    console.error(error)
+                });
         }
 
 
